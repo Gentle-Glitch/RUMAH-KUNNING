@@ -12,15 +12,15 @@
             margin: 0;
             padding: 0;
             font-family: 'Noto Serif KR', serif;
-            background-color: #fcf9f2; /* 부드러운 크림색 */
+            background-color: #fcf9f2;
             color: #3e3a35;
             line-height: 1.8;
-            scroll-behavior: smooth;
+            word-break: keep-all; /* 한글 단어 끊김 방지 */
         }
 
         /* 헤더 섹션 */
         header {
-            height: 70vh;
+            height: 60vh;
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1537953391147-f459c03281f9?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
@@ -30,38 +30,35 @@
             align-items: center;
             color: white;
             text-align: center;
+            padding: 0 20px;
         }
 
         header h1 {
             font-family: 'Nanum Pen Script', cursive;
-            font-size: 6rem;
+            font-size: clamp(3rem, 10vw, 6rem); /* 반응형 크기 조절 */
             margin: 0;
             color: #ffcc00;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         header p {
-            font-size: 1.4rem;
-            letter-spacing: 3px;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            letter-spacing: 2px;
             margin-top: 10px;
-            font-weight: 300;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
         .section-title {
+            display: block;
             text-align: center;
             font-size: 2.2rem;
-            margin-bottom: 50px;
+            margin: 0 auto 50px auto;
             border-bottom: 3px solid #ffcc00;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-            position: relative;
+            width: fit-content;
             padding-bottom: 10px;
             font-weight: 700;
         }
@@ -71,24 +68,21 @@
             background: #eeeae3;
             border: 2px dashed #8c7b60;
             border-radius: 20px;
-            padding: 60px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 100px;
+            padding: 40px;
             text-align: center;
+            margin-bottom: 80px;
         }
-        .floor-plan-box svg { width: 80px; fill: #8c7b60; margin-bottom: 20px; opacity: 0.6; }
-        .floor-plan-desc { font-size: 1.1rem; color: #5a544b; }
 
-        /* 객실 및 공용 공간 그리드 */
+        /* 객실 소개 그리드 */
         .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 100px;
+            display: flex;
+            flex-wrap: wrap; /* 글자 밀림 방지 */
+            gap: 40px;
+            margin-bottom: 80px;
             align-items: center;
         }
+
+        .grid > div { flex: 1 1 400px; }
 
         .img-box img {
             width: 100%;
@@ -98,18 +92,12 @@
             box-shadow: 15px 15px 0px #ffcc00;
         }
 
-        .text-box h3 {
-            font-size: 1.8rem;
-            color: #8c7b60;
-            margin-top: 0;
-        }
-
-        /* 공용 공간 3분할 카드 */
+        /* 공용 공간 카드 */
         .common-space-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
         }
         .common-card {
             background: white;
@@ -117,61 +105,44 @@
             border-radius: 20px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
         }
-        .common-card:hover { transform: translateY(-5px); }
-        .common-card h4 { color: #8c7b60; font-size: 1.4rem; margin-bottom: 15px; border-bottom: 1px solid #f0e6d2; padding-bottom: 10px; }
 
-        /* 서핑 강습 인터랙션 */
+        /* 서핑 강습 섹션 */
         .surf-lesson-container {
             background: #3e3a35;
             color: #fcf9f2;
-            padding: 80px 40px;
+            padding: 60px 30px;
             border-radius: 40px;
             text-align: center;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
         }
         .surf-btn {
             background: #ffcc00;
             color: #3e3a35;
-            padding: 18px 50px;
+            padding: 15px 40px;
             border: none;
             border-radius: 40px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 25px;
-            transition: 0.3s;
-            font-family: inherit;
+            margin-top: 20px;
         }
-        .surf-btn:hover { background: #e6b800; transform: scale(1.05); }
-        
         #surf-details {
             display: none;
-            margin-top: 40px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 40px;
-            border-radius: 30px;
+            margin-top: 30px;
             text-align: left;
-            max-width: 600px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
-            border: 1px outline rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
         }
-        #surf-details ul { list-style: none; padding: 0; }
-        #surf-details li { margin-bottom: 15px; font-size: 1.1rem; }
-        #surf-details li strong { color: #ffcc00; margin-right: 10px; }
 
-        /* 강아지 섹션 */
-        .dogs-section {
-            background-color: #f9f2e7;
-            padding: 80px 20px;
-            border-radius: 40px;
-            text-align: center;
-        }
+        /* 강아지 섹션 - 사진 수정됨 */
         .dogs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
@@ -179,10 +150,11 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
+            text-align: center;
         }
         .dog-card img {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid #ffcc00;
@@ -193,13 +165,7 @@
             background-color: #3e3a35;
             color: #fcf9f2;
             text-align: center;
-            padding: 60px 0;
-            margin-top: 100px;
-        }
-
-        @media (max-width: 768px) {
-            .grid, .common-space-grid { grid-template-columns: 1fr; }
-            header h1 { font-size: 4rem; }
+            padding: 40px 0;
         }
     </style>
 </head>
@@ -207,28 +173,17 @@
 
     <header>
         <h1>Rumah Kuning</h1>
-        <p>짱구의 논밭 끝, 시간이 멈추는 노란 집</p>
+        <p>4인 1실, 12명의 여행자가 머무는 노란 집</p>
     </header>
 
     <div class="container">
         
-        <div style="text-align: center; margin-bottom: 80px;">
-            <h2 class="section-title">Overview</h2>
-            <p>루마 쿠닝(Rumah Kuning)은 '노란 집'이라는 뜻의 발리 전통 가옥입니다.<br>
-            총 12명의 여행자가 함께 머무는 이곳은 도망쳐 온 이들의 안식처이자,<br>
-            맨발로 흙을 밟으며 당신만의 파도를 기다리는 공간입니다.</p>
-        </div>
-
         <h2 class="section-title">Floor Plan</h2>
         <div class="floor-plan-box">
-            <svg viewBox="0 0 24 24"><path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" /></svg>
-            <div class="floor-plan-desc">
-                <p><strong>[공간 구성]</strong></p>
-                <p>입구 ─ 마당(Long Table) ─ 공용 주방<br>
-                객실 구역 (4인실 × 3개 / 총 12명 수용)<br>
-                중앙 계단 ─ 루프탑 테라스 (Sunset View)</p>
-                <small style="color: #8c7b60;">※ 마당의 모든 공간은 24시간 열려 있습니다.</small>
-            </div>
+            <p><strong>[루마 쿠닝 공간 구성도]</strong></p>
+            <p>입구 ─ 마당(Long Table) ─ 공용 주방<br>
+            A동(4인실) / B동(4인실) / C동(4인실)<br>
+            옥상 ─ 루프탑 테라스</p>
         </div>
 
         <div class="grid">
@@ -236,83 +191,65 @@
                 <img src="https://images.unsplash.com/photo-1555854816-802f188095e4?auto=format&fit=crop&w=800&q=80" alt="도미토리">
             </div>
             <div class="text-box">
-                <h3>4-Bed Dormitory</h3>
-                <p>총 3개의 객실이 있으며, 각 방은 4인 1실로 운영됩니다. 나무로 견고하게 짜인 2층 침대와 개인 스탠드가 준비되어 있습니다. 모기장 너머로 들려오는 풀벌레 소리와 함께 깊은 잠에 빠져보세요. (최대 12인 수용)</p>
+                <h3>The Dormitory (4인 1실)</h3>
+                <p>총 3개의 객실로 운영되며, 각 방에는 4명의 여행자가 머뭅니다[cite: 2]. 모르는 이들과의 우연한 만남이 시작되는 곳이죠. 총 수용 인원 12명으로 오붓한 커뮤니티를 지향합니다[cite: 2].</p>
             </div>
         </div>
 
-        <h2 class="section-title">Common Spaces</h2>
+        <h2 class="section-title">Common Space</h2>
         <div class="common-space-grid">
             <div class="common-card">
                 <h4>Open Kitchen</h4>
-                <p>언제든 자유롭게 요리할 수 있는 주방입니다. 함께 미고랭을 만들어 탁자로 가져가세요.</p>
+                <p>누구나 요리하고 나눌 수 있는 열린 주방입니다[cite: 2].</p>
             </div>
             <div class="common-card">
                 <h4>The Long Table</h4>
-                <p>마당 한가운데 놓인 거대한 나무 탁자. 오토바이 키와 빈땅 맥주가 늘 뒹구는 루마 쿠닝의 거실입니다.</p>
+                <p>마당 한가운데 놓인 큰 탁자에서 발리의 저녁이 깊어집니다[cite: 2].</p>
             </div>
             <div class="common-card">
-                <h4>Sunset Rooftop</h4>
-                <p>논밭 뷰가 펼쳐진 루프탑입니다. 석양이 질 때면 시계 대신 하늘의 색을 보며 시간을 확인하세요.</p>
+                <h4>Rooftop</h4>
+                <p>노란 집의 가장 높은 곳에서 석양과 파도를 감상하세요[cite: 2].</p>
             </div>
         </div>
 
         <div class="surf-lesson-container">
-            <h2>🏄‍♂️ Learn to Surf</h2>
-            <p>상대의 오토바이 뒷자리에 올라타 페레레난 해변으로 떠날 시간입니다.</p>
-            <button class="surf-btn" onclick="toggleSurf()">강습 내용 상세 보기</button>
-            
+            <h2>🏄‍♂️ Surf Lessons</h2>
+            <p>발리의 파도를 온몸으로 느낄 준비가 되셨나요?</p>
+            <button class="surf-btn" onclick="toggleSurf()">강습 상세 보기</button>
             <div id="surf-details">
-                <h3>[서핑 커리큘럼]</h3>
-                <ul>
-                    <li><strong>Step 01.</strong> 바다 읽기: 조류와 파도 거품을 관찰하는 법</li>
-                    <li><strong>Step 02.</strong> 패들링: 모래 위가 아닌 바다와 하나 되는 리듬</li>
-                    <li><strong>Step 03.</strong> 테이크오프: 파도가 당신을 밀어줄 때 일어서기</li>
-                    <li><strong>Step 04.</strong> 코코넛 휴식: 젖은 머리로 즐기는 가장 달콤한 시간</li>
-                </ul>
-                <p style="text-align: center; margin-top: 25px; font-style: italic;">"파도를 고르지 마세요. 파도가 당신을 고를 때까지 기다리면 됩니다."</p>
+                <p><strong>01. 지상 훈련:</strong> 모래 위 테이크오프 (30분)[cite: 2]</p>
+                <p><strong>02. 실전 서핑:</strong> 로컬 강사와 1:2 밀착 강습[cite: 2]</p>
+                <p><strong>03. 리뷰 타임:</strong> 서핑 후 코코넛과 함께하는 피드백[cite: 2]</p>
             </div>
         </div>
 
-        <div class="dogs-section">
-            <h2 class="section-title">Resident Dogs</h2>
-            <p>루마 쿠닝의 마당을 지키는 세 마리의 진짜 주인들입니다.</p>
-            <div class="dogs-grid">
-                <div class="dog-card">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=400&q=80" alt="나시고랭">
-                    <h4>나시고랭 (Nasi)</h4>
-                    <p>가장 시원한 타일 바닥을<br>가장 먼저 찾아냅니다.</p>
-                </div>
-                <div class="dog-card">
-                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=400&q=80" alt="삼발">
-                    <h4>삼발 (Sambal)</h4>
-                    <p>간식 소리에는 귀신같이<br>잠에서 깨어 마중을 나옵니다.</p>
-                </div>
-                <div class="dog-card">
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="빈땅">
-                    <h4>빈땅 (Bintang)</h4>
-                    <p>오토바이 소리가 들리면<br>제일 먼저 대문으로 뛰어갑니다.</p>
-                </div>
+        <h2 class="section-title">Resident Dogs</h2>
+        <div class="dogs-grid">
+            <div class="dog-card">
+                <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=400&q=80" alt="강아지 나시고랭">
+                <h4>나시고랭 (Nasi)</h4>
+            </div>
+            <div class="dog-card">
+                <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=400&q=80" alt="강아지 삼발">
+                <h4>삼발 (Sambal)</h4>
+            </div>
+            <div class="dog-card">
+                <!-- 빈땅 사진 수정: 여자 사람 -> 강아지 사진으로 교체 -->
+                <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=400&q=80" alt="강아지 빈땅">
+                <h4>빈땅 (Bintang)</h4>
             </div>
         </div>
-
     </div>
 
     <footer>
-        <p>Jalan Raya Canggu, No. 108, Bali, Indonesia</p>
-        <p>© Rumah Kuning. "Take your time, Bali time."</p>
+        <p>Jalan Raya Canggu, Bali | © Rumah Kuning</p>
     </footer>
 
     <script>
         function toggleSurf() {
-            var details = document.getElementById("surf-details");
-            if (details.style.display === "block") {
-                details.style.display = "none";
-            } else {
-                details.style.display = "block";
-            }
+            const details = document.getElementById("surf-details");
+            details.style.display = (details.style.display === "block") ? "none" : "block";
         }
     </script>
-
 </body>
 </html>
