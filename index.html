@@ -1,305 +1,791 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rumah Kuning Bali - 노란 집으로의 초대</title>
-    <style>
-        /* 발리 감성 폰트 설정 */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Nanum+Pen+Script&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rumah Kuning — 노란 집으로의 초대</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Serif KR', serif;
-            background-color: #fcf9f2;
-            color: #3e3a35;
-            line-height: 1.8;
-            word-break: keep-all; /* 한글 단어 끊김 방지 */
-        }
+  :root {
+    --ink:       #2a2520;
+    --ink-mid:   #4a4540;
+    --ink-soft:  #7a7268;
+    --ink-faint: #b8b0a4;
+    --sand:      #f7f3ec;
+    --sand-mid:  #ede7da;
+    --sand-dark: #d9cebd;
+    --gold:      #e6b800;
+    --gold-deep: #b88f00;
+    --gold-pale: #f5e27a;
+    --gold-wash: #fdf6d0;
+    --white:     #fefcf8;
+  }
 
-        /* 헤더 섹션 */
-        header {
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1537953391147-f459c03281f9?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
-        }
+  html { scroll-behavior: smooth; }
 
-        header h1 {
-            font-family: 'Nanum Pen Script', cursive;
-            font-size: clamp(3rem, 10vw, 6rem); /* 반응형 크기 조절 */
-            margin: 0;
-            color: #ffcc00;
-        }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
 
-        header p {
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            letter-spacing: 2px;
-            margin-top: 10px;
-        }
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 8vw 10vh;
+    background: url('https://images.unsplash.com/photo-1537953391147-f459c03281f9?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(30,24,18,0.15) 0%,
+      rgba(30,24,18,0.05) 40%,
+      rgba(30,24,18,0.65) 80%,
+      rgba(20,16,10,0.85) 100%
+    );
+  }
+  .hero-eyebrow {
+    position: relative;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-pale);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.8s 0.3s ease forwards;
+  }
+  .hero-title {
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4.5rem, 14vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+  .hero-title span {
+    color: var(--gold);
+    display: block;
+  }
+  .hero-subtitle {
+    position: relative;
+    margin-top: 1.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(255,252,245,0.8);
+    max-width: 420px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.8s 0.7s ease forwards;
+  }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 3.5vh;
+    right: 8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s ease forwards;
+  }
+  .hero-scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,252,245,0.45);
+    writing-mode: vertical-rl;
+  }
+  .hero-scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(255,252,245,0.35), transparent);
+    animation: lineGrow 1.5s 1.5s ease forwards;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lineGrow {
+    to { transform: scaleY(1); }
+  }
 
-        .section-title {
-            display: block;
-            text-align: center;
-            font-size: 2.2rem;
-            margin: 0 auto 50px auto;
-            border-bottom: 3px solid #ffcc00;
-            width: fit-content;
-            padding-bottom: 10px;
-            font-weight: 700;
-        }
+  /* ── LAYOUT ───────────────────────────────── */
+  .wrap {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 5vw;
+  }
 
-        /* 평면도 섹션 */
-        .floor-plan-box {
-            background: #eeeae3;
-            border: 2px dashed #8c7b60;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 80px;
-        }
+  section { padding: 100px 0; }
 
-        /* 객실 소개 그리드 */
-        .grid {
-            display: flex;
-            flex-wrap: wrap; /* 글자 밀림 방지 */
-            gap: 40px;
-            margin-bottom: 80px;
-            align-items: center;
-        }
+  /* ── SECTION LABELS ──────────────────────── */
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold-deep);
+    flex-shrink: 0;
+  }
 
-        .grid > div { flex: 1 1 400px; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--ink-mid);
+  }
 
-        .img-box img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 15px 15px 0px #ffcc00;
-        }
+  /* ── DIVIDER ─────────────────────────────── */
+  .divider {
+    width: 56px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
 
-        /* 공용 공간 카드 */
-        .common-space-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 80px;
-        }
-        .common-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
+  /* ── FLOOR PLAN ──────────────────────────── */
+  .floorplan-section {
+    background: var(--sand-mid);
+    padding: 100px 0;
+  }
+  .floorplan-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .floorplan-desc p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+  .floorplan-box {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 32px;
+    box-shadow: 0 2px 0 var(--gold), 0 20px 60px rgba(42,37,32,0.08);
+  }
 
-        /* 서핑 강습 섹션 */
-        .surf-lesson-container {
-            background: #3e3a35;
-            color: #fcf9f2;
-            padding: 60px 30px;
-            border-radius: 40px;
-            text-align: center;
-            margin-bottom: 80px;
-        }
-        .surf-btn {
-            background: #ffcc00;
-            color: #3e3a35;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        #surf-details {
-            display: none;
-            margin-top: 30px;
-            text-align: left;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 20px;
-        }
+  /* ── ROOM SECTION ────────────────────────── */
+  .room-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 80px;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 24px 72px rgba(42,37,32,0.12);
+  }
+  .room-img {
+    position: relative;
+    overflow: hidden;
+    height: 540px;
+  }
+  .room-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .room-grid:hover .room-img img { transform: scale(1.04); }
+  .room-copy {
+    background: var(--ink);
+    color: var(--sand);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .room-copy .section-label { color: var(--gold-pale); }
+  .room-copy .section-label::before { background: var(--gold-pale); }
+  .room-copy .section-title { color: var(--white); }
+  .room-copy p {
+    font-size: 0.88rem;
+    color: rgba(237,231,218,0.7);
+    line-height: 1.95;
+    margin-bottom: 1.2rem;
+  }
+  .room-stat {
+    display: flex;
+    gap: 40px;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(237,231,218,0.15);
+  }
+  .room-stat-item {}
+  .room-stat-item .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .room-stat-item .lbl {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(237,231,218,0.45);
+    margin-top: 4px;
+  }
 
-        /* 강아지 섹션 - 사진 수정됨 */
-        .dogs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .dog-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-        }
-        .dog-card img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #ffcc00;
-            margin-bottom: 15px;
-        }
+  /* ── COMMON SPACE ────────────────────────── */
+  .common-section { background: var(--white); }
+  .common-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+  .common-card {
+    background: var(--sand);
+    padding: 44px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+    cursor: default;
+  }
+  .common-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .common-card:hover { background: var(--sand-mid); }
+  .common-card:hover::after { transform: scaleX(1); }
+  .common-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--sand-dark);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+  .common-card:hover .common-card-num { color: var(--gold-pale); }
+  .common-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .common-card p {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.9;
+  }
 
-        footer {
-            background-color: #3e3a35;
-            color: #fcf9f2;
-            text-align: center;
-            padding: 40px 0;
-        }
-    </style>
+  /* ── SURF ────────────────────────────────── */
+  .surf-section {
+    background: var(--ink);
+    padding: 100px 0;
+  }
+  .surf-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .surf-left .section-label { color: var(--gold-pale); }
+  .surf-left .section-label::before { background: var(--gold-pale); }
+  .surf-left .section-title { color: var(--white); margin-bottom: 1.4rem; }
+  .surf-left p {
+    font-size: 0.88rem;
+    color: rgba(237,231,218,0.55);
+    line-height: 1.95;
+    margin-bottom: 2.5rem;
+  }
+
+  .surf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .surf-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%) skewX(-12deg);
+    transition: transform 0.5s ease;
+  }
+  .surf-btn:hover {
+    background: var(--gold-pale);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(230,184,0,0.3);
+  }
+  .surf-btn:hover::before { transform: translateX(200%) skewX(-12deg); }
+  .surf-btn:active { transform: translateY(0); box-shadow: none; }
+  .surf-btn svg {
+    transition: transform 0.25s ease;
+  }
+  .surf-btn:hover svg { transform: rotate(45deg); }
+
+  .surf-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .surf-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(237,231,218,0.08);
+    align-items: start;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .surf-step.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .surf-step:first-child { padding-top: 0; }
+  .surf-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .surf-step h5 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .surf-step p {
+    font-size: 0.8rem;
+    color: rgba(237,231,218,0.45);
+    line-height: 1.8;
+  }
+
+  /* ── DOGS ────────────────────────────────── */
+  .dogs-section { background: var(--sand-mid); }
+  .dogs-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    margin-top: 3rem;
+  }
+  .dog-card {
+    background: var(--white);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease;
+    cursor: default;
+  }
+  .dog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(42,37,32,0.12);
+  }
+  .dog-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  .dog-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    filter: saturate(0.85);
+  }
+  .dog-card:hover .dog-photo img {
+    transform: scale(1.06);
+    filter: saturate(1);
+  }
+  .dog-info {
+    padding: 24px 28px;
+    border-top: 2px solid var(--gold);
+  }
+  .dog-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .dog-role {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* ── FOOTER ──────────────────────────────── */
+  footer {
+    background: var(--ink);
+    padding: 56px 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .footer-addr {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(237,231,218,0.35);
+  }
+
+  /* ── SCROLL REVEAL ───────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 840px) {
+    .floorplan-inner { grid-template-columns: 1fr; }
+    .room-grid { grid-template-columns: 1fr; }
+    .room-img { height: 320px; }
+    .common-grid { grid-template-columns: 1fr; }
+    .surf-inner { grid-template-columns: 1fr; }
+    .dogs-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .dogs-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>Rumah Kuning</h1>
-        <p>4인 1실, 12명의 여행자가 머무는 노란 집</p>
-    </header>
+<!-- HERO -->
+<header class="hero">
+  <p class="hero-eyebrow">Canggu, Bali &nbsp;·&nbsp; Guesthouse</p>
+  <h1 class="hero-title">Rumah<span>Kuning</span></h1>
+  <p class="hero-subtitle">모르는 이들과 함께, 노란 집에서 보내는 열두 개의 여름</p>
+  <div class="hero-scroll-hint"><span>Scroll</span></div>
+</header>
 
-    <div class="container">
-        
-        <h2 class="section-title">Floor Plan</h2>
-        <div class="floor-plan-box">
-            <!-- 루마 쿠닝 깔끔한 평면도 SVG -->
-<div style="width: 100%; max-width: 800px; margin: 0 auto; background: #fcf9f2; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-    <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-        <!-- 배경 및 기본 선 설정 -->
-        <rect width="800" height="500" fill="#fcf9f2" />
-        
-        <!-- 담장 (Perimeter) -->
-        <rect x="20" y="20" width="760" height="460" fill="none" stroke="#8c7b60" stroke-width="2" rx="10" />
-        
-        <!-- ROOM 1, 2, 3 (왼쪽 배치) -->
-        <g fill="#ffcc00" fill-opacity="0.1" stroke="#8c7b60" stroke-width="2">
-            <rect x="50" y="50" width="180" height="120" rx="5" /> <!-- ROOM 1 -->
-            <rect x="50" y="190" width="180" height="120" rx="5" /> <!-- ROOM 2 -->
-            <rect x="50" y="330" width="180" height="120" rx="5" /> <!-- ROOM 3 -->
-        </g>
-        
-        <!-- 주방 (Top Center) -->
-        <rect x="270" y="50" width="200" height="100" fill="#f0e6d2" stroke="#8c7b60" stroke-width="2" rx="5" />
-        
-        <!-- 루프탑 계단 (Bottom Left) -->
-        <g stroke="#8c7b60" stroke-width="2">
-            <line x1="240" y1="400" x2="270" y2="400" />
-            <line x1="240" y1="420" x2="270" y2="420" />
-            <line x1="240" y1="440" x2="270" y2="440" />
-            <rect x="240" y="390" width="30" height="70" fill="none" />
-        </g>
-
-        <!-- 중앙 마당 & 테이블 (Center) -->
-        <circle cx="500" cy="300" r="120" fill="#ffcc00" fill-opacity="0.05" stroke="#ffcc00" stroke-dasharray="5,5" />
-        <rect x="420" y="280" width="160" height="40" fill="#8c7b60" rx="5" /> <!-- 커다란 테이블 -->
-        
-        <!-- 입구 (Bottom Right) -->
-        <line x1="650" y1="480" x2="720" y2="480" stroke="#fcf9f2" stroke-width="5" /> <!-- 입구 뚫기 -->
-        <path d="M 650 480 Q 685 440 720 480" fill="none" stroke="#8c7b60" stroke-width="2" />
-
-        <!-- 텍스트 라벨 (글자) -->
-        <g font-family="'Noto Serif KR', serif" font-size="14" fill="#3e3a35" font-weight="bold">
-            <text x="105" y="115">ROOM 1</text>
-            <text x="105" y="255">ROOM 2</text>
-            <text x="105" y="395">ROOM 3</text>
-            <text x="330" y="105">OPEN KITCHEN</text>
-            <text x="445" y="305" fill="white">LONG TABLE</text>
-            <text x="480" y="400" fill="#ffcc00">CENTRAL YARD</text>
-            <text x="665" y="465" font-size="12">ENTRANCE</text>
-            <text x="230" y="380" font-size="11" transform="rotate(-90, 230, 380)">ROOFTOP STAIRS</text>
-        </g>
-        
-        <!-- 미니 아이콘: 강아지 위치 표시 -->
-        <circle cx="580" cy="350" r="4" fill="#ffcc00" /> <!-- 나시고랭 -->
-        <circle cx="600" cy="360" r="4" fill="#ffcc00" /> <!-- 삼발 -->
-        <circle cx="590" cy="335" r="4" fill="#ffcc00" /> <!-- 빈땅 -->
-        <text x="610" y="355" font-size="10" font-weight="normal" fill="#8c7b60">Dogs Area</text>
-    </svg>
-</div>>
+<!-- FLOOR PLAN -->
+<section class="floorplan-section">
+  <div class="wrap">
+    <div class="floorplan-inner">
+      <div>
+        <p class="section-label reveal">House Layout</p>
+        <h2 class="section-title reveal">집의<br><em>구조</em></h2>
+        <div class="divider reveal"></div>
+        <div class="reveal">
+          <p style="font-size:0.88rem;color:var(--ink-soft);line-height:1.95;margin-bottom:1rem;">3개의 도미토리 룸과 열린 부엌, 마당의 긴 탁자, 그리고 발리의 하늘을 담은 루프탑으로 구성된 소담한 공간입니다.</p>
+          <p style="font-size:0.88rem;color:var(--ink-soft);line-height:1.95;">총 12인을 위한 집으로 설계되어, 너무 크지도 작지도 않은 커뮤니티를 만들어냅니다.</p>
         </div>
-
-        <div class="grid">
-            <div class="img-box">
-                <img src="https://images.unsplash.com/photo-1555854816-802f188095e4?auto=format&fit=crop&w=800&q=80" alt="도미토리">
-            </div>
-            <div class="text-box">
-                <h3>The Dormitory (4인 1실)</h3>
-                <p>총 3개의 객실로 운영되며, 각 방에는 4명의 여행자가 머뭅니다[cite: 2]. 모르는 이들과의 우연한 만남이 시작되는 곳이죠. 총 수용 인원 12명으로 오붓한 커뮤니티를 지향합니다[cite: 2].</p>
-            </div>
-        </div>
-
-        <h2 class="section-title">Common Space</h2>
-        <div class="common-space-grid">
-            <div class="common-card">
-                <h4>Open Kitchen</h4>
-                <p>누구나 요리하고 나눌 수 있는 열린 주방입니다[cite: 2].</p>
-            </div>
-            <div class="common-card">
-                <h4>The Long Table</h4>
-                <p>마당 한가운데 놓인 큰 탁자에서 발리의 저녁이 깊어집니다[cite: 2].</p>
-            </div>
-            <div class="common-card">
-                <h4>Rooftop</h4>
-                <p>노란 집의 가장 높은 곳에서 석양과 파도를 감상하세요[cite: 2].</p>
-            </div>
-        </div>
-
-        <div class="surf-lesson-container">
-            <h2>🏄‍♂️ Surf Lessons</h2>
-            <p>발리의 파도를 온몸으로 느낄 준비가 되셨나요?</p>
-            <button class="surf-btn" onclick="toggleSurf()">강습 상세 보기</button>
-            <div id="surf-details">
-                <p><strong>01. 지상 훈련:</strong> 모래 위 테이크오프 (30분)[cite: 2]</p>
-                <p><strong>02. 실전 서핑:</strong> 로컬 강사와 1:2 밀착 강습[cite: 2]</p>
-                <p><strong>03. 리뷰 타임:</strong> 서핑 후 코코넛과 함께하는 피드백[cite: 2]</p>
-            </div>
-        </div>
-
-        <h2 class="section-title">Resident Dogs</h2>
-        <div class="dogs-grid">
-            <div class="dog-card">
-                <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=400&q=80" alt="강아지 나시고랭">
-                <h4>나시고랭 (Nasi)</h4>
-            </div>
-            <div class="dog-card">
-                <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=400&q=80" alt="강아지 삼발">
-                <h4>삼발 (Sambal)</h4>
-            </div>
-            <div class="dog-card">
-                <!-- 빈땅 사진 수정: 여자 사람 -> 강아지 사진으로 교체 -->
-                <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=400&q=80" alt="강아지 빈땅">
-                <h4>빈땅 (Bintang)</h4>
-            </div>
-        </div>
+      </div>
+      <div class="floorplan-box reveal">
+        <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <defs>
+            <pattern id="dot" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="#d9cebd"/>
+            </pattern>
+          </defs>
+          <rect width="760" height="480" fill="#faf7f1"/>
+          <rect width="760" height="480" fill="url(#dot)" opacity="0.5"/>
+          <!-- outer wall -->
+          <rect x="20" y="20" width="720" height="440" fill="none" stroke="#b8b0a4" stroke-width="1.5" rx="3"/>
+          <!-- rooms -->
+          <rect x="50" y="52" width="190" height="118" fill="#fdf6d0" stroke="#b88f00" stroke-width="1.5" rx="2"/>
+          <rect x="50" y="190" width="190" height="118" fill="#fdf6d0" stroke="#b88f00" stroke-width="1.5" rx="2"/>
+          <rect x="50" y="328" width="190" height="118" fill="#fdf6d0" stroke="#b88f00" stroke-width="1.5" rx="2"/>
+          <!-- kitchen -->
+          <rect x="280" y="52" width="200" height="96" fill="#ede7da" stroke="#b8b0a4" stroke-width="1.5" rx="2"/>
+          <!-- central yard dashed circle -->
+          <circle cx="530" cy="295" r="130" fill="none" stroke="#e6b800" stroke-width="1" stroke-dasharray="6 4" opacity="0.5"/>
+          <!-- long table -->
+          <rect x="448" y="270" width="164" height="48" fill="#4a4540" rx="3"/>
+          <!-- rooftop stairs -->
+          <rect x="248" y="368" width="28" height="78" fill="#ede7da" stroke="#b8b0a4" stroke-width="1" rx="1"/>
+          <line x1="248" y1="381" x2="276" y2="381" stroke="#b8b0a4" stroke-width="0.8"/>
+          <line x1="248" y1="394" x2="276" y2="394" stroke="#b8b0a4" stroke-width="0.8"/>
+          <line x1="248" y1="407" x2="276" y2="407" stroke="#b8b0a4" stroke-width="0.8"/>
+          <line x1="248" y1="420" x2="276" y2="420" stroke="#b8b0a4" stroke-width="0.8"/>
+          <line x1="248" y1="433" x2="276" y2="433" stroke="#b8b0a4" stroke-width="0.8"/>
+          <!-- entrance gap -->
+          <line x1="630" y1="459" x2="710" y2="459" stroke="#faf7f1" stroke-width="6"/>
+          <path d="M630 459 Q670 420 710 459" fill="none" stroke="#b8b0a4" stroke-width="1.5"/>
+          <!-- labels rooms -->
+          <text x="135" y="108" font-family="'Bebas Neue', sans-serif" font-size="13" letter-spacing="2" fill="#b88f00" text-anchor="middle">ROOM 01</text>
+          <text x="135" y="246" font-family="'Bebas Neue', sans-serif" font-size="13" letter-spacing="2" fill="#b88f00" text-anchor="middle">ROOM 02</text>
+          <text x="135" y="384" font-family="'Bebas Neue', sans-serif" font-size="13" letter-spacing="2" fill="#b88f00" text-anchor="middle">ROOM 03</text>
+          <text x="380" y="96" font-family="'Bebas Neue', sans-serif" font-size="11" letter-spacing="2" fill="#7a7268" text-anchor="middle">OPEN KITCHEN</text>
+          <text x="530" y="296" font-family="'Bebas Neue', sans-serif" font-size="10" letter-spacing="1.5" fill="#fefcf8" text-anchor="middle">LONG TABLE</text>
+          <text x="530" y="420" font-family="'Bebas Neue', sans-serif" font-size="11" letter-spacing="2" fill="#b88f00" text-anchor="middle" opacity="0.75">CENTRAL YARD</text>
+          <text x="671" y="446" font-family="'Bebas Neue', sans-serif" font-size="10" letter-spacing="1.5" fill="#7a7268" text-anchor="middle">ENTRANCE</text>
+          <!-- dogs dot cluster -->
+          <circle cx="600" cy="360" r="3.5" fill="#e6b800" opacity="0.9"/>
+          <circle cx="616" cy="370" r="3.5" fill="#e6b800" opacity="0.9"/>
+          <circle cx="608" cy="348" r="3.5" fill="#e6b800" opacity="0.9"/>
+          <text x="630" y="362" font-family="'Noto Sans KR', sans-serif" font-size="9" fill="#7a7268">Dogs</text>
+        </svg>
+      </div>
     </div>
+  </div>
+</section>
 
-    <footer>
-        <p>Jalan Raya Canggu, Bali | © Rumah Kuning</p>
-    </footer>
+<!-- ROOMS -->
+<section style="padding:100px 0; background:var(--sand);">
+  <div class="wrap">
+    <p class="section-label reveal">Accommodation</p>
+    <h2 class="section-title reveal">도미토리,<br><em>낯선 이들과의 방</em></h2>
+    <div class="divider reveal"></div>
+  </div>
+  <div class="wrap">
+    <div class="room-grid reveal">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1555854816-802f188095e4?auto=format&fit=crop&w=900&q=85" alt="도미토리 객실">
+      </div>
+      <div class="room-copy">
+        <p class="section-label">The Dormitory</p>
+        <h3 class="section-title">4인 1실<br><em>3개의 방</em></h3>
+        <p>각 방에는 4개의 침대가 놓입니다. 처음에는 모르는 사람이지만, 이틀이 지나면 같은 파도를 탄 사람이 됩니다.</p>
+        <p>너무 많지 않은 12명의 숫자가 루마 쿠닝을 특별하게 만들어줍니다.</p>
+        <div class="room-stat">
+          <div class="room-stat-item">
+            <div class="num">12</div>
+            <div class="lbl">Max Guests</div>
+          </div>
+          <div class="room-stat-item">
+            <div class="num">3</div>
+            <div class="lbl">Rooms</div>
+          </div>
+          <div class="room-stat-item">
+            <div class="num">4</div>
+            <div class="lbl">Per Room</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        function toggleSurf() {
-            const details = document.getElementById("surf-details");
-            details.style.display = (details.style.display === "block") ? "none" : "block";
-        }
-    </script>
+<!-- COMMON SPACE -->
+<section class="common-section">
+  <div class="wrap">
+    <p class="section-label reveal">Shared Areas</p>
+    <h2 class="section-title reveal">함께 쓰는<br><em>공간들</em></h2>
+    <div class="divider reveal"></div>
+  </div>
+  <div class="wrap">
+    <div class="common-grid">
+      <div class="common-card reveal">
+        <div class="common-card-num">01</div>
+        <h4>Open Kitchen</h4>
+        <p>누구나 요리하고, 누구나 나눌 수 있는 열린 주방. 발리 시장에서 사온 재료로 함께 밥을 짓는 저녁을 상상해보세요.</p>
+      </div>
+      <div class="common-card reveal reveal-delay-1">
+        <div class="common-card-num">02</div>
+        <h4>The Long Table</h4>
+        <p>마당 한가운데 놓인 긴 탁자. 밥을 먹고, 맥주를 마시고, 각자의 여행 이야기를 풀어놓는 하루의 끝 자리입니다.</p>
+      </div>
+      <div class="common-card reveal reveal-delay-2">
+        <div class="common-card-num">03</div>
+        <h4>Rooftop</h4>
+        <p>노란 집의 가장 높은 곳. 석양이 지는 발리의 하늘 아래 아무것도 안 해도 되는 시간이 기다립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SURF -->
+<section class="surf-section">
+  <div class="wrap">
+    <div class="surf-inner">
+      <div class="surf-left">
+        <p class="section-label reveal">Activities</p>
+        <h2 class="section-title reveal">서핑<br><em>레슨</em></h2>
+        <div class="divider reveal"></div>
+        <p class="reveal">발리의 파도를 처음 만나는 순간을 기억하게 해드립니다. 로컬 강사와 함께, 모래에서 시작해 바다 위에 서는 그 순간까지.</p>
+        <button class="surf-btn reveal" id="surfToggle" onclick="toggleSurf()">
+          프로그램 상세 보기
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line x1="0" y1="7" x2="14" y2="7"/>
+            <polyline points="7 0 14 7 7 14"/>
+          </svg>
+        </button>
+      </div>
+      <div id="surfSteps" class="surf-steps" style="padding-top:6px;">
+        <div class="surf-step" id="step1">
+          <div class="surf-step-num">01</div>
+          <div>
+            <h5>지상 훈련</h5>
+            <p>모래 위에서 테이크오프 자세를 익힙니다. 약 30분간의 기초 훈련으로 물에 들어갈 준비를 마칩니다.</p>
+          </div>
+        </div>
+        <div class="surf-step" id="step2">
+          <div class="surf-step-num">02</div>
+          <div>
+            <h5>실전 서핑</h5>
+            <p>로컬 강사와 1:2 밀착 강습. 파도를 읽는 법부터 보드 위에 서는 순간까지 함께합니다.</p>
+          </div>
+        </div>
+        <div class="surf-step" id="step3">
+          <div class="surf-step-num">03</div>
+          <div>
+            <h5>리뷰 타임</h5>
+            <p>서핑 후 코코넛 한 잔과 함께하는 피드백 시간. 오늘의 파도를 복기하며 내일을 기약합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOGS -->
+<section class="dogs-section">
+  <div class="wrap">
+    <p class="section-label reveal">Resident Crew</p>
+    <h2 class="section-title reveal">집을 지키는<br><em>세 녀석</em></h2>
+    <div class="divider reveal"></div>
+    <div class="dogs-grid">
+      <div class="dog-card reveal">
+        <div class="dog-photo">
+          <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=85" alt="나시고랭">
+        </div>
+        <div class="dog-info">
+          <div class="dog-name">나시고랭</div>
+          <div class="dog-role">Nasi Goreng &nbsp;·&nbsp; Head of Security</div>
+        </div>
+      </div>
+      <div class="dog-card reveal reveal-delay-1">
+        <div class="dog-photo">
+          <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=85" alt="삼발">
+        </div>
+        <div class="dog-info">
+          <div class="dog-name">삼발</div>
+          <div class="dog-role">Sambal &nbsp;·&nbsp; Chief of Cuddles</div>
+        </div>
+      </div>
+      <div class="dog-card reveal reveal-delay-2">
+        <div class="dog-photo">
+          <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=600&q=85" alt="빈땅">
+        </div>
+        <div class="dog-info">
+          <div class="dog-name">빈땅</div>
+          <div class="dog-role">Bintang &nbsp;·&nbsp; Rooftop Specialist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Rumah Kuning</div>
+  <div class="footer-addr">Jalan Raya Canggu, Bali &nbsp;·&nbsp; © Rumah Kuning</div>
+</footer>
+
+<script>
+  /* Scroll reveal */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* Surf toggle */
+  let surfOpen = true;
+  const steps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+
+  function showSteps() {
+    steps.forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 120);
+    });
+  }
+  function hideSteps() {
+    steps.forEach(el => el.classList.remove('visible'));
+  }
+
+  showSteps(); /* show on load */
+
+  function toggleSurf() {
+    surfOpen = !surfOpen;
+    const btn = document.getElementById('surfToggle');
+    if (surfOpen) {
+      showSteps();
+      btn.querySelector('svg').style.transform = '';
+    } else {
+      hideSteps();
+      btn.querySelector('svg').style.transform = 'rotate(90deg)';
+    }
+  }
+</script>
 </body>
 </html>
